@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class Note {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    @ColumnInfo(name = "title")
+
     private String title;
 
     private String description;

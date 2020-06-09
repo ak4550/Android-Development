@@ -39,20 +39,6 @@ public class NoteRepository {
             return null;
         }
     }
-    void update(Note note){
-        NoteDatabase.databaseWriterExecutor.execute(() -> {
-            noteDao.update(note);
-        });
-    }
-    void delete(Note note){
-        NoteDatabase.databaseWriterExecutor.execute(() -> {
-            noteDao.delete(note);
-        });
-    }
-     void deleteAllNotes(){
-        NoteDatabase.databaseWriterExecutor.execute(() ->{
-            noteDao.deleteAllNotes();
-        });
-     }
+
 
 }

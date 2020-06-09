@@ -38,7 +38,7 @@ public class NoteAddingActivity extends AppCompatActivity {
 
 
         numberPicker.setMaxValue(10);
-        numberPicker.setMinValue(0);
+        numberPicker.setMinValue(1);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
         setTitle("Add Note");
@@ -72,10 +72,10 @@ public class NoteAddingActivity extends AppCompatActivity {
                     finish();
                 }
             //    Toast.makeText(this, "yo", Toast.LENGTH_SHORT).show();
-                break;
+                return true;
             default:
-
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+
     }
 }

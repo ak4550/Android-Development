@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
-        NoteViewModel viewModel = new ViewModelProvider(this)
+        viewModel = new ViewModelProvider(this)
                 .get(NoteViewModel.class);
         viewModel.getAllNotes().observe(this,
                 new Observer<List<Note>>() {
@@ -70,21 +71,32 @@ public class MainActivity extends AppCompatActivity {
                                     int resultCode,
                                     @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode){
-            case REQUEST_CODE:
-                if(resultCode == RESULT_OK){
-                    String title = data.getStringExtra(NOTE_TITLE);
-                    String description = data.getStringExtra(NOTE_DESCRIPTION);
-                    int priority = data.getIntExtra(NOTE_PRIORITY, 1);
-                    Note note = new Note(title, description, priority);
-                    if(note == null){
-                        Toast.makeText(this, "Null", Toast.LENGTH_SHORT).show();
-                    }else {
-                    viewModel.insert(note);
-                    Snackbar bar = Snackbar.make(container,
-                            "Note Saved", Snackbar.LENGTH_SHORT);
-                    bar.show();}
-                }
+//        switch(requestCode){
+//            case REQUEST_CODE:
+//                if(resultCode == RESULT_OK){
+//                    String title = data.getStringExtra(NOTE_TITLE);
+//                    String description = data.getStringExtra(NOTE_DESCRIPTION);
+//                    int priority = data.getIntExtra(NOTE_PRIORITY, 1);
+//                    Note note = new Note(title, description, priority);
+//                    if(note == null){
+//                        Toast.makeText(this, "Null", Toast.LENGTH_SHORT).show();
+//                    }else {
+//                    viewModel.insert(note);
+//                    Snackbar bar = Snackbar.make(container,
+//                            "Note Saved", Snackbar.LENGTH_SHORT);
+//                    bar.show();}
+//                }
+//        }
+
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            String title = data.getStringExtra(NOTE_TITLE);
+            String description = data.getStringExtra(NOTE_DESCRIPTION);
+            int priority = data.getIntExtra(NOTE_PRIORITY, 1);
+            Note note = new Note(title, description, priority);
+            viewModel.insert(note);
+            Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
         }
-    }
+      }
 }
