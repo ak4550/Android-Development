@@ -10,6 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.List;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,6 +18,9 @@ import java.util.concurrent.Executors;
 public abstract class NoteDatabase extends RoomDatabase {
     public abstract NoteDao noteDao();
     private static NoteDatabase instance;
+    public static final int NUMBER_OF_THREADS = 4;
+    static final ExecutorService dbWriter =
+            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public static synchronized NoteDatabase getDatabaseInstance(Context context){
         if(instance == null){
@@ -33,7 +37,12 @@ public abstract class NoteDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PopulateAsyncTask(instance).execute();
+//            new PopulateAsyncTask(instance).execute();
+            NoteDatabase.dbWriter.execute(() ->{
+                NoteDao noteDao = instance.noteDao();
+                noteDao.insert(new Note("title-1",
+                        "description-1", 1));
+            });
         }
 
         @Override

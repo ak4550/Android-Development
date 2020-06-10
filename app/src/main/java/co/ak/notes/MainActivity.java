@@ -71,32 +71,32 @@ public class MainActivity extends AppCompatActivity {
                                     int resultCode,
                                     @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        switch(requestCode){
-//            case REQUEST_CODE:
-//                if(resultCode == RESULT_OK){
-//                    String title = data.getStringExtra(NOTE_TITLE);
-//                    String description = data.getStringExtra(NOTE_DESCRIPTION);
-//                    int priority = data.getIntExtra(NOTE_PRIORITY, 1);
-//                    Note note = new Note(title, description, priority);
-//                    if(note == null){
-//                        Toast.makeText(this, "Null", Toast.LENGTH_SHORT).show();
-//                    }else {
-//                    viewModel.insert(note);
-//                    Snackbar bar = Snackbar.make(container,
-//                            "Note Saved", Snackbar.LENGTH_SHORT);
-//                    bar.show();}
-//                }
-//        }
-
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            String title = data.getStringExtra(NOTE_TITLE);
-            String description = data.getStringExtra(NOTE_DESCRIPTION);
-            int priority = data.getIntExtra(NOTE_PRIORITY, 1);
-            Note note = new Note(title, description, priority);
-            viewModel.insert(note);
-            Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
+        switch(requestCode){
+            case REQUEST_CODE:
+                if(resultCode == RESULT_OK){
+                    String title = data.getStringExtra(NOTE_TITLE);
+                    String description = data.getStringExtra(NOTE_DESCRIPTION);
+                    int priority = data.getIntExtra(NOTE_PRIORITY, 1);
+                    Note note = new Note(title, description, priority);
+                    if(note == null){
+                        Toast.makeText(this, "Null", Toast.LENGTH_SHORT).show();
+                    }else {
+                    viewModel.insert(note);
+                    Snackbar bar = Snackbar.make(container,
+                            "Note Saved", Snackbar.LENGTH_SHORT);
+                    bar.show();}
+                }
         }
+
+//        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+//            String title = data.getStringExtra(NOTE_TITLE);
+//            String description = data.getStringExtra(NOTE_DESCRIPTION);
+//            int priority = data.getIntExtra(NOTE_PRIORITY, 1);
+//            Note note = new Note(title, description, priority);
+//            viewModel.insert(note);
+//            Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
+//        } else {
+//            Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
+//        }
       }
 }
