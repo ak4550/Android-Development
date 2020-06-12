@@ -12,6 +12,7 @@ import java.util.List;
 public class NoteRepository {
     private NoteDao noteDao;
     private LiveData<List<Note>> allNotes;
+   // private NoteDatabase db;
 
     NoteRepository(Application application){
         NoteDatabase db = NoteDatabase.getDatabaseInstance(application);
@@ -40,5 +41,10 @@ public class NoteRepository {
         }
     }
 
+    void delete(Note note){
+        NoteDatabase.dbWriter.execute(() ->{
+           noteDao.delete(note);
+        });
+    }
 
 }

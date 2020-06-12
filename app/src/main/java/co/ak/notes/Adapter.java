@@ -24,6 +24,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         return new ViewHolder(view);
     }
 
+    public Note getNoteAt(int position){
+        return mNotes.get(position);
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Note note = mNotes.get(position);
